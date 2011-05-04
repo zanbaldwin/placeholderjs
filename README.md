@@ -1,16 +1,9 @@
-﻿Input Autofill
-==============
+﻿[Input Autofill][3]
+===================
 
-    /**
-     * Input Autofill
-     *
-     * jQuery Plugin for Automatic Population of Input Fields.
-     *
-     * @jQuery		Plugin
-     * @author		[Alexander Baldwin][1].
-     * @copyright	2011, [nerv Interactive Limited][2].
-     * @link		https://github.com/mynameiszanders/inputAutoFill
-     */
+jQuery Plugin for Automatic Population of Input Fields by [Alexander Baldwin][1].
+Copyright 2011, [nerv Interactive Limited][2].
 
 [1]: http://mynameiszanders.github.com/ "Alexander Baldwin"
 [2]: http://nerv.co.uk "nerv Interactive: Digital Agency"
+[3]: https://github.com/mynameiszanders/inputAutoFill "Input Autofill"
