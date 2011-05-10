@@ -13,8 +13,7 @@
 	}
 	$.fn.autoFill = function(preClass) {
 		preClass = typeof preClass == "string" ? preClass : false;
-		var inputs = $(this),
-			rel = "focused";
+		var inputs = $(this);
 		if(inputs.length == 0) {
 			return false;
 		}
@@ -22,18 +21,18 @@
 			var input = $(element),
 				defaultVal = element.defaultValue;
 			input.addClass(preClass);
+			input.data("focused", false);
 			input.bind("focus", function(event) {
-				if(input.attr("rel") != rel) {
-					input.attr({
-						"value": "",
-						"rel": rel
-					}).removeClass(preClass);
+				if(!input.data("focused")) {
+					input.val("");
+					input.data("focused", true);
+					input.removeClass(preClass);
 				}
 			});
 			input.bind("blur", function(event) {
-				if(input.attr("value") == "") {
-					input.attr("rel", "");
-					input.attr("value", defaultVal);
+				if(input.val() == "") {
+					input.val(defaultVal);
+					input.data("focused", false);
 					input.addClass(preClass);
 				}
 			});
@@ -41,8 +40,11 @@
 			if(form.length != 0) {
 				form = $(form.get(0));
 				form.bind("reset", function(event) {
+					// Use a timeout because anything here is overwritten by the
+					// browsers own reset functionality. Make sure this function
+					// gets executed afterwards.
 					setTimeout(function() {
-						input.attr("value", "").trigger("blur");
+						input.val("").trigger("blur");
 					}, 1);
 				});
 			}
