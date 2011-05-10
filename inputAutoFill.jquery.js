@@ -1,27 +1,39 @@
-﻿(function($) {
+/*!
+ * Input Auto Fill
+ *
+ * @author		Alexander Baldwin <https://github.com/mynameiszanders>
+ * @copyright	2011, Alexander Baldwin
+ * @requires	jQuery;
+ * @link		https://github.com/mynameiszanders/inputAutoFill
+ */
+(function(undefined) {
+	var $ = this.jQuery;
+	if(typeof $ !== "function") {
+		return false;
+	}
 	$.fn.autoFill = function(preClass) {
 		preClass = typeof preClass == "string" ? preClass : false;
-		input = $(this);
-		if(input.length == 0) {
+		var inputs = $(this),
+			rel = "focused";
+		if(inputs.length == 0) {
 			return false;
 		}
-		var rel = "focused";
-		$.each(input, function(index, element) {
-			var input = $(element);
-			var defaultval = element.defaultValue;
+		$.each(inputs, function(index, element) {
+			var input = $(element),
+				defaultVal = element.defaultValue;
 			input.addClass(preClass);
 			input.bind("focus", function(event) {
 				if(input.attr("rel") != rel) {
-					defaultval = input.attr("value");
-					input.attr("value", "");
-					input.attr("rel", rel);
-					input.removeClass(preClass);
+					input.attr({
+						"value": "",
+						"rel": rel
+					}).removeClass(preClass);
 				}
 			});
 			input.bind("blur", function(event) {
 				if(input.attr("value") == "") {
-					input.attr("value", defaultval);
 					input.attr("rel", "");
+					input.attr("value", defaultVal);
 					input.addClass(preClass);
 				}
 			});
@@ -30,18 +42,10 @@
 				form = $(form.get(0));
 				form.bind("reset", function(event) {
 					setTimeout(function() {
-						input.attr("value", "");
-						input.trigger("blur");
+						input.attr("value", "").trigger("blur");
 					}, 1);
-				});
-				form.bind("submit", function(event) {
-					if(input.data("required") == true && input.attr("rel") != rel) {
-						event.preventDefault();
-						input.trigger("inputRequired");
-						return false;
-					}
 				});
 			}
 		});
 	};
-})(jQuery);
+}).call(this);
