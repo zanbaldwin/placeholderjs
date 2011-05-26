@@ -13,15 +13,19 @@
 	}
 	$.fn.autoFill = function(preClass) {
 		preClass = typeof preClass == "string" ? preClass : false;
-		var inputs = $(this);
+		var inputs = $(this).filter("input[type='text'],input[type='password'],textarea");
 		if(inputs.length == 0) {
 			return false;
 		}
 		$.each(inputs, function(index, element) {
 			var input = $(element),
 				defaultVal = element.defaultValue;
-			input.addClass(preClass);
-			input.data("focused", false);
+			input.addClass(preClass).data("focused", false);
+			// Add the autocomplete="off" attribute to prevent browsers from
+			// trying to autofill the input. Autocomplete causes problems when
+			// auto-filling an username field tries to update the password field
+			// (which does not have focus).
+			input.attr("autocomplete", "off");
 			input.bind("focus", function(event) {
 				if(!input.data("focused")) {
 					input.val("");
