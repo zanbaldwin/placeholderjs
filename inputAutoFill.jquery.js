@@ -24,14 +24,12 @@
 						   : element.defaultValue;
 			input.val() !== defaultVal ? input.data("focused", true)
 									   : input.addClass(preClass).data("focused", false);
-			// Add the autocomplete="off" attribute to prevent browsers from
-			// trying to autofill the input. Autocomplete causes problems when
-			// auto-filling an username field tries to update the password field
-			// (which does not have focus).
-			input.attr("autocomplete", "off");
 			input.bind("focus", function(event) {
 				if(!input.data("focused")) {
-					input.val("");
+					// Only set the input value to nothing if the value if the
+					// default value. This prevent removing what the browser may
+					// have changed the value to (eg, autocomplete).
+					defaultVal === input.val() && input.val("");
 					input.data("focused", true);
 					input.removeClass(preClass);
 				}
