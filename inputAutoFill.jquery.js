@@ -19,8 +19,11 @@
 		}
 		$.each(inputs, function(index, element) {
 			var input = $(element),
-				defaultVal = element.defaultValue;
-			input.addClass(preClass).data("focused", false);
+				defaultVal = typeof input.data("default") === "string"
+						   ? input.data("default")
+						   : element.defaultValue;
+			input.val() !== defaultVal ? input.data("focused", true)
+									   : input.addClass(preClass).data("focused", false);
 			// Add the autocomplete="off" attribute to prevent browsers from
 			// trying to autofill the input. Autocomplete causes problems when
 			// auto-filling an username field tries to update the password field
