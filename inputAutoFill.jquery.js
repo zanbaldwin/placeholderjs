@@ -52,8 +52,15 @@
 						input.val("").trigger("blur");
 					}, 1);
 				});
+				form.bind("submit", function(event) {
+					if(!input.data("focused")) {
+						input.val("");
+					}
+				});
 			}
 		});
+		// Once all the functionality has been applied, trigger a blur event on all
+		// inputs to make sure the correct values and classes are shown on initialisation.
 		inputs.trigger("blur");
 	};
 }).call(this);
