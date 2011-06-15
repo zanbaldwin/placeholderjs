@@ -40,6 +40,12 @@
 					input.data("focused", false);
 					input.addClass(preClass);
 				}
+				// This is to make sure the browser has not changed the value of
+				// the input without triggering an event (eg. saved passwords
+				// autocomplete).
+				else if(input.val() != defaultVal) {
+					input.data("focused", true);
+				}
 			});
 			var form = input.parents("form");
 			if(form.length != 0) {
@@ -53,6 +59,7 @@
 					}, 1);
 				});
 				form.bind("submit", function(event) {
+					input.trigger("blur");
 					if(!input.data("focused")) {
 						input.val("");
 					}
