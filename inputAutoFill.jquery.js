@@ -7,13 +7,20 @@
  * @link		https://github.com/mynameiszanders/inputAutoFill
  */
 (function(undefined) {
-	var $ = this.jQuery;
+	var $ = this.jQuery,
+		validElements = [
+			"input[type='text']",	"input[type='search']",		"input[type='password']",
+			"input[type='tel']",	"input[type='url']",		"input[type='email']",
+			"input[type='date']",	"input[type='month']",		"input[type='datetime']",
+			"input[type='week']",	"input[type='time']",		"input[type='datetime-local']",
+			"input[type='number']",	"input[type='color']",		"textarea"
+		].join(",");
 	if(typeof $ !== "function") {
 		return false;
 	}
 	$.fn.autoFill = function(preClass) {
 		preClass = typeof preClass == "string" ? preClass : false;
-		var inputs = $(this).filter("input[type='text'],input[type='password'],textarea");
+		var inputs = $(this).filter(validElements);
 		if(inputs.length == 0) {
 			return false;
 		}
