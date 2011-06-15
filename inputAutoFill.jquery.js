@@ -54,5 +54,6 @@
 				});
 			}
 		});
+		inputs.trigger("blur");
 	};
 }).call(this);
