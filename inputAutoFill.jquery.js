@@ -18,6 +18,10 @@
 	if(typeof $ !== "function") {
 		return false;
 	}
+	var placeholder_support = (function() {
+		var i = document.createElement("input");
+		return "placeholder" in i;
+	})();
 	$.fn.autoFill = function(preClass) {
 		preClass = typeof preClass == "string" ? preClass : false;
 		var inputs = $(this).filter(validElements);
@@ -26,9 +30,15 @@
 		}
 		$.each(inputs, function(index, element) {
 			var input = $(element),
-				defaultVal = typeof input.data("default") === "string"
-						   ? input.data("default")
+				defaultVal = typeof input.data("placeholder") === "string"
+						   ? input.data("placeholder")
 						   : element.defaultValue;
+			// If the browser supports HTML5 input placeholders, and the current
+			// input has one set, do not bother applying this plugin, just skip
+			// directly to the next iteration.
+			if(placeholder_support && typeof input.attr("placeholder") === "string" && input.attr("placeholder") !== "") {
+				return true;
+			}
 			input.val() !== defaultVal ? input.data("focused", true)
 									   : input.addClass(preClass).data("focused", false);
 			input.bind("focus", function(event) {
