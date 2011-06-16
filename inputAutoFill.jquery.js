@@ -8,13 +8,14 @@
  */
 (function(undefined) {
 	var $ = this.jQuery,
-		validElements = [
-			"input[type='text']",	"input[type='search']",		"input[type='password']",
-			"input[type='tel']",	"input[type='url']",		"input[type='email']",
-			"input[type='date']",	"input[type='month']",		"input[type='datetime']",
-			"input[type='week']",	"input[type='time']",		"input[type='datetime-local']",
-			"input[type='number']",	"input[type='color']",		"textarea"
-		].join(",");
+		validInputs = [
+			"text",		"search",	"password",		"tel",		"url",
+			"email",	"date",		"month",		"datetime",	"week",
+			"time",		"number",	"color",		"datetime-local"
+		],
+		validElements = "input[type='"
+					  + validInputs.join("'],input[type='")
+					  + "'],textarea";
 	if(typeof $ !== "function") {
 		return false;
 	}
