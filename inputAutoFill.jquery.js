@@ -4,6 +4,7 @@
  * @author		Alexander Baldwin <https://github.com/mynameiszanders>
  * @copyright	2011, Alexander Baldwin
  * @requires	jQuery;
+ * @license	MIT/X11 <http://j.mp/mit-license>
  * @link		https://github.com/mynameiszanders/inputAutoFill
  */
 (function(undefined) {
