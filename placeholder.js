@@ -9,7 +9,16 @@
  */
 (function(undefined) {
 	var $ = this.jQuery,
-		validInputs = [
+		placeholder_support = (function() {
+			var i = document.createElement("input");
+			return "placeholder" in i;
+		})();
+	// If the browser already supports HTML5 input placeholders, don't bother applying this plugin.
+	if(placeholder_support || typeof $ !== "function") {
+		return false;
+	}
+
+	var validInputs = [
 			"text",		"search",	"password",		"tel",		"url",
 			"email",	"date",		"month",		"datetime",	"week",
 			"time",		"number",	"color",		"datetime-local"
@@ -17,13 +26,7 @@
 		validElements = "input[type='"
 					  + validInputs.join("'],input[type='")
 					  + "'],textarea";
-	if(typeof $ !== "function") {
-		return false;
-	}
-	var placeholder_support = (function() {
-		var i = document.createElement("input");
-		return "placeholder" in i;
-	})();
+
 	$.fn.placeholder = function() {
 		var preClass = "placeholder",
 			inputs = $(this).filter(validElements);
@@ -35,11 +38,6 @@
 				defaultVal = typeof input.attr("placeholder") === "string"
 						   ? input.attr("placeholder")
 						   : "";
-			// If the browser supports HTML5 input placeholders, and the current input has one set, do not bother
-			// applying this plugin, just skip directly to the next iteration.
-			if(placeholder_support && defaultVal.length > 0) {
-				return true;
-			}
 
 			input.val().length !== 0
 				// If the input already have a non-empty string value set, either by direct HTML or by browser
