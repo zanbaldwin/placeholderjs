@@ -44,7 +44,7 @@
 			input.val().length !== 0
 				// If the input already have a non-empty string value set, either by direct HTML or by browser
 				// manipulation (e.g. form auto-fill feature), declare the input as already focused.
-				? input.data("focused", true);
+				? input.data("focused", true)
 				// Input is not focused already and add placeholder class to the element.
 				: input.addClass(preClass).data("focused", false);
 
