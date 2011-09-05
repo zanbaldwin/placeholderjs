@@ -1,4 +1,4 @@
-﻿[Input Autofill][2]
+﻿[Placeholder.js][2]
 ===================
 
 [jQuery][4] Plugin for the automatic population of input text fields, by [Zander Baldwin][1]. It is used to replicate the HTML5 input placeholder features in modern browsers.
